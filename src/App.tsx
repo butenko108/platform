@@ -8,6 +8,7 @@ function App() {
 
   return (
     <>
+      <p className="underline">New headline</p>
       <div>
         <a href="https://vite.dev" target="_blank" rel="noopener">
           <img src={viteLogo} className="logo" alt="Vite logo" />
