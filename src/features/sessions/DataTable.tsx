@@ -2,8 +2,8 @@ import Paper from "@mui/material/Paper";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
+  { field: "id", headerName: "ID", width: 70, editable: true },
+  { field: "firstName", headerName: "First name", width: 130, editable: true },
   { field: "lastName", headerName: "Last name", width: 130 },
   {
     field: "age",
@@ -19,6 +19,14 @@ const columns: GridColDef[] = [
     width: 160,
     valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
   },
+  { field: "ss", headerName: "ss", width: 130 },
+  { field: "dd", headerName: "dd", width: 130 },
+  { field: "ff", headerName: "ff", width: 130 },
+  { field: "gg", headerName: "gg", width: 130 },
+  { field: "hh", headerName: "jj", width: 130 },
+  { field: "kk", headerName: "kk", width: 130 },
+  { field: "ll", headerName: "ll", width: 130 },
+  { field: "ww", headerName: "ww", width: 130 },
 ];
 
 const rows = [
@@ -45,6 +53,7 @@ export const DataTable = () => {
         pageSizeOptions={[5, 10]}
         checkboxSelection
         sx={{ border: 0 }}
+        showToolbar
       />
     </Paper>
   );
