@@ -1,2 +1,2 @@
-export { Auth } from "./Auth";
-export { Sessions } from "./Sessions";
+export { AuthPage } from "./AuthPage";
+export { SessionsPage } from "./SessionsPage";
