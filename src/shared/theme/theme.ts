@@ -5,12 +5,16 @@ import { COLORS } from "shared/constants/colors";
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     "headline/large": React.CSSProperties;
+    "headline/small": React.CSSProperties;
+    "body/large": React.CSSProperties;
     "body/medium": React.CSSProperties;
     "body/small": React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     "headline/large"?: React.CSSProperties;
+    "headline/small"?: React.CSSProperties;
+    "body/large"?: React.CSSProperties;
     "body/medium"?: React.CSSProperties;
     "body/small"?: React.CSSProperties;
   }
@@ -20,6 +24,8 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     "headline/large": true;
+    "headline/small": true;
+    "body/large": true;
     "body/medium": true;
     "body/small": true;
   }
@@ -36,6 +42,19 @@ export const theme = createTheme({
       fontWeight: 400,
       lineHeight: "40px",
       letterSpacing: "1.12px",
+    },
+    "headline/small": {
+      fontFamily: "Unbounded",
+      fontSize: "20px",
+      fontWeight: 400,
+      lineHeight: "20px",
+      letterSpacing: "0.8px",
+    },
+    "body/large": {
+      fontFamily: "Manrope",
+      fontSize: "18px",
+      fontWeight: 500,
+      lineHeight: "24px",
     },
     "body/medium": {
       fontFamily: "Manrope",

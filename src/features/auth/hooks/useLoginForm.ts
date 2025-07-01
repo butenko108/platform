@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES } from "app/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -14,7 +14,7 @@ export const useLoginForm = () => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const loginSchema = createLoginSchema(t);
 
   const form = useForm<LoginFormData>({
@@ -27,29 +27,38 @@ export const useLoginForm = () => {
     mode: "onChange",
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <i18n.language — это «флаг» того, что язык изменился>
+  useEffect(() => {
+    type FieldNames = keyof LoginFormData;
+    const touchedFields = Object.keys(form.formState.errors) as FieldNames[];
+
+    if (touchedFields.length > 0) {
+      form.trigger(touchedFields);
+    }
+  }, [form, i18n.language]);
+
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
+    navigate(ROUTES.SESSIONS);
 
     try {
-      const response = await authAPI.login(data);
-
-      if (response.success) {
-        // Сохраняем токен
-        if (data.rememberMe) {
-          localStorage.setItem("authToken", response.token || "");
-        } else {
-          sessionStorage.setItem("authToken", response.token || "");
-        }
-
-        // Переходим на страницу сессий
-        navigate(ROUTES.SESSIONS);
-      } else {
-        setSnackbarMessage(response.message || t("auth.error.generic"));
-        setSnackbarOpen(true);
-      }
+      // const response = await authAPI.login(data);
+      // if (response.success) {
+      //   // Сохраняем токен
+      //   if (data.rememberMe) {
+      //     localStorage.setItem("authToken", response.token || "");
+      //   } else {
+      //     sessionStorage.setItem("authToken", response.token || "");
+      //   }
+      //   // Переходим на страницу сессий
+      //   navigate(ROUTES.SESSIONS);
+      // } else {
+      //   setSnackbarMessage(response.message || t("auth.error.generic"));
+      //   setSnackbarOpen(true);
+      // }
     } catch {
-      setSnackbarMessage(t("auth.error.network"));
-      setSnackbarOpen(true);
+      // setSnackbarMessage(t("auth.error.network"));
+      // setSnackbarOpen(true);
     } finally {
       setIsLoading(false);
     }
