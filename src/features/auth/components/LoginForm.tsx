@@ -41,31 +41,29 @@ export const LoginForm: React.FC = () => {
   return (
     <Box className="w-full max-w-[420px] mx-auto">
       {/* Заголовок */}
-      <Box className="mb-8">
+      <Box className="mb-8 text-center">
         <Typography
-          variant="h1"
-          className="text-[28px] leading-[40px] font-medium mb-1"
-          style={{
-            color: COLORS.text.primary,
-            letterSpacing: "1.12px",
+          variant="headline/large"
+          className="mb-1"
+          component="h1"
+          sx={{
+            color: COLORS.text.blue,
           }}
         >
           {t("auth.welcome")}
         </Typography>
         <Typography
-          variant="h2"
-          className="text-[28px] leading-[40px] font-medium"
-          style={{
-            color: COLORS.text.secondary,
-            letterSpacing: "1.12px",
+          variant="headline/large"
+          sx={{
+            color: COLORS.text.primary,
           }}
+          component="h1"
         >
           {t("auth.subtitle")}
         </Typography>
       </Box>
 
-      {/* Форма */}
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         {/* Email поле */}
         <Controller
           name="email"
@@ -83,24 +81,16 @@ export const LoginForm: React.FC = () => {
               error={!!errors.email}
               helperText={errors.email?.message}
               disabled={isLoading}
-              className="w-full"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "12px",
-                  "& fieldset": {
-                    borderColor: COLORS.border,
-                  },
-                  "&:hover fieldset": {
-                    borderColor: COLORS.primary.main,
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: COLORS.primary.main,
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: COLORS.text.secondary,
-                  "&.Mui-focused": {
-                    color: COLORS.primary.main,
+              slotProps={{
+                inputLabel: {
+                  sx: {
+                    fontFamily: "Manrope",
+                    fontSize: "16px",
+                    fontWeight: 500,
+                    color: COLORS.text.secondary,
+                    "&.Mui-focused": {
+                      color: COLORS.text.blue,
+                    },
                   },
                 },
               }}
@@ -124,38 +114,31 @@ export const LoginForm: React.FC = () => {
               error={!!errors.password}
               helperText={errors.password?.message}
               disabled={isLoading}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={togglePasswordVisibility}
-                      edge="end"
-                      disabled={isLoading}
-                      className="text-gray-500 hover:text-gray-700"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "12px",
-                  "& fieldset": {
-                    borderColor: COLORS.border,
-                  },
-                  "&:hover fieldset": {
-                    borderColor: COLORS.primary.main,
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: COLORS.primary.main,
+              slotProps={{
+                inputLabel: {
+                  sx: {
+                    fontFamily: "Manrope",
+                    fontSize: "16px",
+                    fontWeight: 500,
+                    color: COLORS.text.secondary,
+                    "&.Mui-focused": {
+                      color: COLORS.text.blue,
+                    },
                   },
                 },
-                "& .MuiInputLabel-root": {
-                  color: COLORS.text.secondary,
-                  "&.Mui-focused": {
-                    color: COLORS.primary.main,
-                  },
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={togglePasswordVisibility}
+                        edge="end"
+                        disabled={isLoading}
+                        className="text-gray-500 hover:text-gray-700"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 },
               }}
             />
@@ -181,8 +164,14 @@ export const LoginForm: React.FC = () => {
                   }}
                 />
               }
-              label={t("auth.rememberMe")}
-              className="text-gray-700"
+              label={
+                <Typography
+                  variant="body/medium"
+                  sx={{ color: COLORS.text.secondary }}
+                >
+                  {t("auth.rememberMe")}
+                </Typography>
+              }
             />
           )}
         />
@@ -193,41 +182,50 @@ export const LoginForm: React.FC = () => {
           fullWidth
           variant="contained"
           disabled={isLoading}
-          className={clsx(
-            "h-14 rounded-xl font-medium text-white",
-            "normal-case text-base",
-            isLoading && "opacity-70",
-          )}
+          className={clsx("h-14 rounded-xl", isLoading && "opacity-70")}
           sx={{
             backgroundColor: COLORS.primary.main,
+            color: COLORS.text.white,
+            textTransform: "none",
             "&:hover": {
               backgroundColor: COLORS.primary.main,
               opacity: 0.9,
             },
             "&:disabled": {
               backgroundColor: COLORS.primary.main,
-              color: "white",
+              color: COLORS.text.white,
             },
           }}
         >
           {isLoading ? (
             <Box className="flex items-center gap-2">
               <CircularProgress size={20} color="inherit" />
-              {t("auth.signingIn")}
+              <Typography variant="body/small" color="inherit">
+                {t("auth.signingIn")}
+              </Typography>
             </Box>
           ) : (
-            t("auth.signIn")
+            <Typography variant="body/small" color="inherit">
+              {t("auth.signIn")}
+            </Typography>
           )}
         </Button>
 
         {/* Забыли пароль */}
-        <Box className="text-center">
+        <Box className="text-center py-4">
           <Link
             href="#"
-            className="text-base font-medium no-underline hover:underline"
-            style={{ color: COLORS.primary.main }}
+            sx={{
+              color: COLORS.text.blue,
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
           >
-            {t("auth.forgotPassword")}
+            <Typography variant="body/small" color="inherit">
+              {t("auth.forgotPassword")}
+            </Typography>
           </Link>
         </Box>
       </form>

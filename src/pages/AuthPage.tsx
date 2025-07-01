@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { icons } from "assets";
 import clsx from "clsx";
 import { LanguageSelector } from "features/auth/components/LanguageSelector";
 import { LoginForm } from "features/auth/components/LoginForm";
@@ -8,44 +9,26 @@ import { COLORS } from "shared/constants/colors";
 export const AuthPage: React.FC = () => {
   return (
     <Box className="min-h-screen flex">
-      {/* Левая часть */}
-      <Box className="flex-1 lg:max-w-[900px] flex flex-col p-10">
-        {/* Header */}
-        <Box className="h-14 flex items-center justify-between mb-8">
-          {/* Логотип */}
-          <Box className="flex items-center">
-            <Box className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
-              <Typography variant="h6" className="text-white font-bold text-sm">
-                N
-              </Typography>
-            </Box>
-            <Typography
-              variant="h6"
-              className="ml-2 font-semibold text-gray-800"
-            >
-              NETRONIC
-            </Typography>
-          </Box>
-
-          {/* Языковой селектор */}
+      <Box className="w-full lg:w-2/3 flex flex-col p-10">
+        <Box className="flex items-center justify-between">
+          <img src={icons.logo} alt="netronic logo" />
           <LanguageSelector />
         </Box>
 
-        {/* Основной контент - центрирование формы */}
         <Box className="flex-1 flex items-center justify-center">
           <LoginForm />
         </Box>
       </Box>
 
-      {/* Правая часть - только на desktop */}
       <Box
-        className={clsx(
-          "hidden lg:block lg:max-w-[540px] flex-1",
-          "relative overflow-hidden",
-        )}
+        className={clsx("hidden lg:block lg:w-1/3", "relative overflow-hidden")}
         style={{ backgroundColor: COLORS.primary.background }}
       >
-        Example
+        <img
+          src={icons.logo_big}
+          alt="netronic big logo"
+          className="absolute bottom-0 right-0 size-[90%]"
+        />
       </Box>
     </Box>
   );

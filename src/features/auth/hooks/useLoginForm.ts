@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { authAPI } from "../lib/api";
-import { type LoginFormData, loginSchema } from "../lib/validation";
+import { createLoginSchema, type LoginFormData } from "../lib/validation";
 
 export const useLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +15,7 @@ export const useLoginForm = () => {
 
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const loginSchema = createLoginSchema(t);
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),

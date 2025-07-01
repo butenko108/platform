@@ -21,6 +21,20 @@ const resources = {
           generic: "An error occurred. Please try again.",
           network: "Network error. Please check your connection.",
         },
+        validation: {
+          emailRequired: "Email is required",
+          emailInvalid: "Please enter a valid email address",
+          passwordMin: "Password must be at least 8 characters",
+          passwordMax: "Password must be at most 100 characters",
+          passwordUppercase:
+            "Password must contain at least one uppercase letter",
+          passwordLowercase:
+            "Password must contain at least one lowercase letter",
+          passwordNumber: "Password must contain at least one number",
+          passwordSpecial:
+            "Password must contain at least one special character",
+          passwordNoSpaces: "Password must not contain spaces",
+        },
       },
     },
   },
@@ -40,6 +54,17 @@ const resources = {
         error: {
           generic: "Виникла помилка. Спробуйте ще раз.",
           network: "Помилка мережі. Перевірте підключення.",
+        },
+        validation: {
+          emailRequired: "Email є обов'язковим",
+          emailInvalid: "Введіть дійсну email адресу",
+          passwordMin: "Пароль має містити щонайменше 8 символів",
+          passwordMax: "Пароль має містити не більше 100 символів",
+          passwordUppercase: "Пароль має містити хоча б одну велику літеру",
+          passwordLowercase: "Пароль має містити хоча б одну малу літеру",
+          passwordNumber: "Пароль має містити хоча б одну цифру",
+          passwordSpecial: "Пароль має містити хоча б один спеціальний символ",
+          passwordNoSpaces: "Пароль не повинен містити пробілів",
         },
       },
     },

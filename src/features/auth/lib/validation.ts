@@ -1,23 +1,19 @@
+import type { TFunction } from "i18next";
 import { z } from "zod";
 
-export const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(100, "Password must be at most 100 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(
-      /[^A-Za-z0-9]/,
-      "Password must contain at least one special character",
-    )
-    .regex(/^\S*$/, "Password must not contain spaces"),
+export const createLoginSchema = (t: TFunction) => z.object({
+  email: z.string()
+    .min(1, t("auth.validation.emailRequired"))
+    .email(t("auth.validation.emailInvalid")),
+  password: z.string()
+    .min(8, t("auth.validation.passwordMin"))
+    .max(100, t("auth.validation.passwordMax"))
+    .regex(/[A-Z]/, t("auth.validation.passwordUppercase"))
+    .regex(/[a-z]/, t("auth.validation.passwordLowercase"))
+    .regex(/[0-9]/, t("auth.validation.passwordNumber"))
+    .regex(/[^A-Za-z0-9]/, t("auth.validation.passwordSpecial"))
+    .regex(/^\S*$/, t("auth.validation.passwordNoSpaces")),
   rememberMe: z.boolean(),
 });
 
-export type LoginFormData = z.infer<typeof loginSchema>;
+export type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;

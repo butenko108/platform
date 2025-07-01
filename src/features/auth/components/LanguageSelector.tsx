@@ -1,8 +1,8 @@
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
-import clsx from "clsx";
 import type React from "react";
 import { useTranslation } from "react-i18next";
+import { COLORS } from "shared/constants/colors";
 import type { Language, LanguageOption } from "../types/auth";
 
 const languageOptions: LanguageOption[] = [
@@ -37,12 +37,13 @@ export const LanguageSelector: React.FC = () => {
         onChange={(e) => handleLanguageChange(e.target.value as Language)}
         displayEmpty
         IconComponent={KeyboardArrowDown}
-        className={clsx(
-          "h-14 min-w-[140px]",
-          "border border-[#E4E1E6] rounded-xl",
-          "hover:border-gray-400",
-        )}
+        className="h-14 min-w-[200px]"
         sx={{
+          borderRadius: "12px",
+          border: `1px solid ${COLORS.border.default}`,
+          "&:hover": {
+            borderColor: COLORS.border.hover,
+          },
           "& .MuiOutlinedInput-notchedOutline": {
             border: "none",
           },
@@ -55,8 +56,13 @@ export const LanguageSelector: React.FC = () => {
         }}
         renderValue={() => (
           <Box className="flex items-center gap-2">
-            <span className="text-xl">{currentLanguage.flag}</span>
-            <Typography variant="body2" className="text-gray-700">
+            <span>{currentLanguage.flag}</span>
+            <Typography
+              variant="body/medium"
+              sx={{
+                color: COLORS.text.secondary,
+              }}
+            >
               {currentLanguage.label}
             </Typography>
           </Box>
@@ -66,7 +72,14 @@ export const LanguageSelector: React.FC = () => {
           <MenuItem key={option.value} value={option.value}>
             <Box className="flex items-center gap-2">
               <span className="text-xl">{option.flag}</span>
-              <Typography variant="body2">{option.label}</Typography>
+              <Typography
+                variant="body/medium"
+                sx={{
+                  color: COLORS.text.secondary,
+                }}
+              >
+                {option.label}
+              </Typography>
             </Box>
           </MenuItem>
         ))}
