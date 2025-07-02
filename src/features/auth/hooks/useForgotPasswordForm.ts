@@ -31,8 +31,7 @@ export const useForgotPasswordForm = ({
     mode: "onChange",
   });
 
-  // Повторная валидация при смене языка
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <При изменении языка должен измениться язык ошибок валидации>
   useEffect(() => {
     type FieldNames = keyof ForgotPasswordFormData;
     const touchedFields = Object.keys(form.formState.errors) as FieldNames[];

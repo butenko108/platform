@@ -23,10 +23,12 @@ export const BaseModal: React.FC<BaseModalProps> = ({
       maxWidth="sm"
       fullWidth
       aria-labelledby={ariaLabelledBy}
-      PaperProps={{
-        sx: {
-          borderRadius: "12px",
-          position: "relative",
+      slotProps={{
+        paper: {
+          sx: {
+            borderRadius: "12px",
+            position: "relative",
+          },
         },
       }}
     >

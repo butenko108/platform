@@ -27,7 +27,7 @@ export const useLoginForm = () => {
     mode: "onChange",
   });
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <i18n.language — это «флаг» того, что язык изменился>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <При изменении языка должен измениться язык ошибок валидации>
   useEffect(() => {
     type FieldNames = keyof LoginFormData;
     const touchedFields = Object.keys(form.formState.errors) as FieldNames[];
