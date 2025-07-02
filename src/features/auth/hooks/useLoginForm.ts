@@ -39,26 +39,19 @@ export const useLoginForm = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    navigate(ROUTES.SESSIONS);
 
     try {
-      // const response = await authAPI.login(data);
-      // if (response.success) {
-      //   // Сохраняем токен
-      //   if (data.rememberMe) {
-      //     localStorage.setItem("authToken", response.token || "");
-      //   } else {
-      //     sessionStorage.setItem("authToken", response.token || "");
-      //   }
-      //   // Переходим на страницу сессий
-      //   navigate(ROUTES.SESSIONS);
-      // } else {
-      //   setSnackbarMessage(response.message || t("auth.error.generic"));
-      //   setSnackbarOpen(true);
-      // }
+      const response = await authAPI.login(data);
+      if (response.success) {
+        // Переходим на страницу сессий
+        navigate(ROUTES.SESSIONS);
+      } else {
+        setSnackbarMessage(response.message || t("auth.error.generic"));
+        setSnackbarOpen(true);
+      }
     } catch {
-      // setSnackbarMessage(t("auth.error.network"));
-      // setSnackbarOpen(true);
+      setSnackbarMessage(t("auth.error.network"));
+      setSnackbarOpen(true);
     } finally {
       setIsLoading(false);
     }

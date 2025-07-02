@@ -35,6 +35,19 @@ const resources = {
             "Password must contain at least one special character",
           passwordNoSpaces: "Password must not contain spaces",
         },
+        recovery: {
+          title: "Password recovery",
+          instructions:
+            "Enter the email to which your account is linked. We will send an email with a link to change your password.",
+          success: "Password recovery email has been sent successfully!",
+          error: {
+            generic:
+              "Failed to send password recovery email. Please try again.",
+          },
+          cancel: "Cancel",
+          confirm: "Confirm",
+          sending: "Sending...",
+        },
       },
     },
   },
@@ -65,6 +78,19 @@ const resources = {
           passwordNumber: "Пароль має містити хоча б одну цифру",
           passwordSpecial: "Пароль має містити хоча б один спеціальний символ",
           passwordNoSpaces: "Пароль не повинен містити пробілів",
+        },
+        recovery: {
+          title: "Відновлення пароля",
+          instructions:
+            "Введіть email, до якого прив'язаний ваш аккаунт. Ми надішлемо лист з посиланням для зміни пароля.",
+          success: "Лист для відновлення пароля успішно надіслано!",
+          error: {
+            generic:
+              "Не вдалося надіслати лист для відновлення пароля. Спробуйте ще раз.",
+          },
+          cancel: "Скасувати",
+          confirm: "Підтвердити",
+          sending: "Надсилання...",
         },
       },
     },

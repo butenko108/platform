@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   IconButton,
   InputAdornment,
-  Link,
   Snackbar,
   TextField,
   Typography,
@@ -20,7 +19,13 @@ import { useTranslation } from "react-i18next";
 import { COLORS } from "shared/constants/colors";
 import { useLoginForm } from "../hooks/useLoginForm";
 
-export const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  onForgotPasswordClick: () => void;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({
+  onForgotPasswordClick,
+}) => {
   const { t } = useTranslation();
   const {
     form,
@@ -213,20 +218,26 @@ export const LoginForm: React.FC = () => {
 
         {/* Забыли пароль */}
         <Box className="text-center py-4">
-          <Link
-            href="#"
+          <Button
+            variant="text"
+            onClick={onForgotPasswordClick}
+            disabled={isLoading}
             sx={{
               color: COLORS.text.blue,
-              textDecoration: "none",
+              textTransform: "none",
               "&:hover": {
+                backgroundColor: "transparent",
                 textDecoration: "underline",
+              },
+              "&:disabled": {
+                color: COLORS.states.disabled,
               },
             }}
           >
             <Typography variant="body/small" color="inherit">
               {t("auth.forgotPassword")}
             </Typography>
-          </Link>
+          </Button>
         </Box>
       </form>
 

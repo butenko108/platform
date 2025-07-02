@@ -3,6 +3,11 @@ import type { LoginFormData, LoginResponse } from "../types/auth";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+export interface PasswordRecoveryResponse {
+  success: boolean;
+  message?: string;
+}
+
 export const authAPI = {
   login: async (credentials: LoginFormData): Promise<LoginResponse> => {
     try {
@@ -26,6 +31,32 @@ export const authAPI = {
       };
     } catch (error) {
       logger.apiError("login", error);
+      return {
+        success: false,
+        message: "Network error occurred",
+      };
+    }
+  },
+
+  sendPasswordRecoveryEmail: async (
+    email: string,
+  ): Promise<PasswordRecoveryResponse> => {
+    try {
+      // Имитация сетевого запроса
+      await delay(1000);
+
+      if (email !== "admin@example.com") {
+        return {
+          success: false,
+          message: "Email not found",
+        };
+      }
+
+      return {
+        success: true,
+      };
+    } catch (error) {
+      logger.apiError("sendPasswordRecoveryEmail", error);
       return {
         success: false,
         message: "Network error occurred",
