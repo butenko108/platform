@@ -46,7 +46,10 @@ export const useLoginForm = () => {
         // Переходим на страницу сессий
         navigate(ROUTES.SESSIONS);
       } else {
-        setSnackbarMessage(response.message || t("auth.error.generic"));
+        const errorMessage = response.message?.startsWith("auth.")
+          ? t(response.message)
+          : response.message || t("auth.error.generic");
+        setSnackbarMessage(errorMessage);
         setSnackbarOpen(true);
       }
     } catch {

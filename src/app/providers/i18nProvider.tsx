@@ -20,6 +20,7 @@ const resources = {
         error: {
           generic: "An error occurred. Please try again.",
           network: "Network error. Please check your connection.",
+          invalidCredentials: "Invalid email or password",
         },
         validation: {
           emailRequired: "Email is required",
@@ -67,6 +68,7 @@ const resources = {
         error: {
           generic: "Виникла помилка. Спробуйте ще раз.",
           network: "Помилка мережі. Перевірте підключення.",
+          invalidCredentials: "Невірний email або пароль",
         },
         validation: {
           emailRequired: "Email є обов'язковим",

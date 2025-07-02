@@ -9,9 +9,9 @@ import type React from "react";
 import { useId } from "react";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { BaseModal } from "shared/components/BaseModal";
 import { COLORS } from "shared/constants/colors";
 import { useForgotPasswordForm } from "../hooks/useForgotPasswordForm";
-import { BaseModal } from "./BaseModal";
 
 interface ForgotPasswordModalProps {
   isOpen: boolean;

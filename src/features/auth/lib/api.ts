@@ -27,13 +27,13 @@ export const authAPI = {
 
       return {
         success: false,
-        message: "Invalid email or password",
+        message: "auth.error.invalidCredentials",
       };
     } catch (error) {
       logger.apiError("login", error);
       return {
         success: false,
-        message: "Network error occurred",
+        message: "auth.error.network",
       };
     }
   },
