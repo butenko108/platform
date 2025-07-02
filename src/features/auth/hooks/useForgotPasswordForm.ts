@@ -64,7 +64,7 @@ export const useForgotPasswordForm = ({
   const handleCancel = () => {
     form.reset();
     onClose();
-    
+
     // Сбрасываем фокус с кнопки Забыть пароль после открытия модалки и нажатия Esc
     setTimeout(() => {
       if (document.activeElement instanceof HTMLButtonElement) {
