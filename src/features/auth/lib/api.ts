@@ -63,4 +63,26 @@ export const authAPI = {
       };
     }
   },
+
+  resetPassword: async (data: {
+    newPassword: string;
+    confirmPassword: string;
+  }): Promise<PasswordRecoveryResponse> => {
+    try {
+      // Имитация сетевого запроса
+      await delay(1500);
+      console.log(data);
+
+      // Простая проверка для демонстрации (можно настроить по желанию)
+      return {
+        success: true,
+      };
+    } catch (error) {
+      logger.apiError("resetPassword", error);
+      return {
+        success: false,
+        message: "auth.resetPassword.error.generic",
+      };
+    }
+  },
 };

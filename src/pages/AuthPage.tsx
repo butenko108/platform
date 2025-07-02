@@ -1,11 +1,13 @@
 import { Alert, Box, Snackbar } from "@mui/material";
+import { ROUTES } from "app/router";
 import { icons } from "assets";
 import clsx from "clsx";
 import { ForgotPasswordModal } from "features/auth/components/ForgotPasswordModal";
 import { LanguageSelector } from "features/auth/components/LanguageSelector";
 import { LoginForm } from "features/auth/components/LoginForm";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
 import { COLORS } from "shared/constants/colors";
 
 export const AuthPage: React.FC = () => {
@@ -15,6 +17,19 @@ export const AuthPage: React.FC = () => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
     "success",
   );
+  const location = useLocation();
+
+  // отображение уведомления о успешном обновлении пароля после того, как использовали функцию забыть пароль
+  useEffect(() => {
+    if (location.state?.message) {
+      setSnackbarMessage(location.state.message);
+      setSnackbarSeverity(location.state.severity || "success");
+      setSnackbarOpen(true);
+
+      // Очищаем state после показа уведомления о успешном обновлении пароля
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const handleForgotPasswordClick = () => {
     setIsForgotPasswordOpen(true);
@@ -44,7 +59,10 @@ export const AuthPage: React.FC = () => {
     <Box className="min-h-screen flex">
       <Box className="w-full lg:w-2/3 flex flex-col p-10">
         <Box className="flex items-center justify-between">
-          <img src={icons.logo} alt="netronic logo" />
+          <Link to={ROUTES.AUTH}>
+            <img src={icons.logo} alt="netronic logo" />
+          </Link>
+
           <LanguageSelector />
         </Box>
 

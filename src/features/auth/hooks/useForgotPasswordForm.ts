@@ -6,7 +6,7 @@ import { authAPI } from "../lib/api";
 import {
   createForgotPasswordSchema,
   type ForgotPasswordFormData,
-} from "../lib/forgotPasswordValidation";
+} from "../lib/createForgotPasswordSchema";
 
 interface UseForgotPasswordFormProps {
   onSuccess: (message: string) => void;

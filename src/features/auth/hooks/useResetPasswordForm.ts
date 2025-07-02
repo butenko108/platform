@@ -5,31 +5,34 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { authAPI } from "../lib/api";
-import { createLoginSchema, type LoginFormData } from "../lib/createLoginSchema";
+import {
+  createResetPasswordSchema,
+  type ResetPasswordFormData,
+} from "../lib/createResetPasswordSchema";
 
-export const useLoginForm = () => {
+export const useResetPasswordForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const loginSchema = createLoginSchema(t);
+  const resetPasswordSchema = createResetPasswordSchema(t);
 
-  const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
+      newPassword: "",
+      confirmPassword: "",
     },
     mode: "onChange",
   });
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <При изменении языка должен измениться язык ошибок валидации>
   useEffect(() => {
-    type FieldNames = keyof LoginFormData;
+    type FieldNames = keyof ResetPasswordFormData;
     const touchedFields = Object.keys(form.formState.errors) as FieldNames[];
 
     if (touchedFields.length > 0) {
@@ -37,18 +40,23 @@ export const useLoginForm = () => {
     }
   }, [form, i18n.language]);
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: ResetPasswordFormData) => {
     setIsLoading(true);
 
     try {
-      const response = await authAPI.login(data);
+      const response = await authAPI.resetPassword(data);
       if (response.success) {
-        // Переходим на страницу сессий
-        navigate(ROUTES.SESSIONS);
+        // Переходим на страницу авторизации с сообщением об успехе
+        navigate(ROUTES.AUTH, {
+          state: {
+            message: t("auth.resetPassword.success"),
+            severity: "success",
+          },
+        });
       } else {
         const errorMessage = response.message?.startsWith("auth.")
           ? t(response.message)
-          : response.message || t("auth.error.generic");
+          : response.message || t("auth.resetPassword.error.generic");
         setSnackbarMessage(errorMessage);
         setSnackbarOpen(true);
       }
@@ -60,8 +68,12 @@ export const useLoginForm = () => {
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const closeSnackbar = () => {
@@ -71,11 +83,13 @@ export const useLoginForm = () => {
   return {
     form,
     isLoading,
-    showPassword,
+    showNewPassword,
+    showConfirmPassword,
     snackbarOpen,
     snackbarMessage,
     onSubmit: form.handleSubmit(onSubmit),
-    togglePasswordVisibility,
+    toggleNewPasswordVisibility,
+    toggleConfirmPasswordVisibility,
     closeSnackbar,
   };
 };
