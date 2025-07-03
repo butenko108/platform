@@ -4,6 +4,7 @@ import {
   CircularProgress,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import type React from "react";
 import { useId } from "react";
@@ -33,6 +34,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
     onClose,
   });
   const titleId = useId();
+  const theme = useTheme();
 
   const {
     control,
@@ -41,7 +43,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
 
   return (
     <BaseModal open={isOpen} onClose={handleCancel} aria-labelledby={titleId}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box sx={{ ...theme.customMixins.flexColumn, gap: 2 }}>
         {/* Заголовок */}
         <Typography
           id={titleId}
@@ -66,7 +68,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
 
         {/* Форма */}
         <form onSubmit={onSubmit}>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Box sx={{ ...theme.customMixins.flexColumn, gap: 2 }}>
             {/* Email поле */}
             <Controller
               name="email"

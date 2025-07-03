@@ -1,3 +1,4 @@
+import type { CSSObject } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import { COLORS } from "shared/constants/colors";
 
@@ -17,6 +18,29 @@ declare module "@mui/material/styles" {
     "body/large"?: React.CSSProperties;
     "body/medium"?: React.CSSProperties;
     "body/small"?: React.CSSProperties;
+  }
+
+  // Добавляем кастомные миксины к теме
+  interface Theme {
+    customMixins: {
+      flexCenter: CSSObject;
+      flexColumn: CSSObject;
+      flexBetween: CSSObject;
+      fullHeight: CSSObject;
+      hideOnMobile: CSSObject;
+      showOnDesktop: CSSObject;
+    };
+  }
+
+  interface ThemeOptions {
+    customMixins?: {
+      flexCenter?: CSSObject;
+      flexColumn?: CSSObject;
+      flexBetween?: CSSObject;
+      fullHeight?: CSSObject;
+      hideOnMobile?: CSSObject;
+      showOnDesktop?: CSSObject;
+    };
   }
 }
 
@@ -157,3 +181,35 @@ export const theme = createTheme({
     },
   },
 });
+
+// Добавляем кастомные миксины после создания темы
+theme.customMixins = {
+  flexCenter: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  flexColumn: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  flexBetween: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  fullHeight: {
+    minHeight: "100vh",
+  },
+  hideOnMobile: {
+    display: "none",
+    [theme.breakpoints.up("lg")]: {
+      display: "block",
+    },
+  },
+  showOnDesktop: {
+    [theme.breakpoints.up("lg")]: {
+      display: "block",
+    },
+  },
+};

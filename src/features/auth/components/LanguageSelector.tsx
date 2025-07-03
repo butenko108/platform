@@ -37,8 +37,9 @@ export const LanguageSelector: React.FC = () => {
         onChange={(e) => handleLanguageChange(e.target.value as Language)}
         displayEmpty
         IconComponent={KeyboardArrowDown}
-        className="h-14 min-w-[200px]"
         sx={{
+          height: "56px",
+          minWidth: "200px",
           borderRadius: "12px",
           border: `1px solid ${COLORS.border.default}`,
           "&:hover": {
@@ -55,7 +56,7 @@ export const LanguageSelector: React.FC = () => {
           },
         }}
         renderValue={() => (
-          <Box className="flex items-center gap-2">
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <span>{currentLanguage.flag}</span>
             <Typography
               variant="body/medium"
@@ -70,8 +71,8 @@ export const LanguageSelector: React.FC = () => {
       >
         {languageOptions.map((option) => (
           <MenuItem key={option.value} value={option.value}>
-            <Box className="flex items-center gap-2">
-              <span className="text-xl">{option.flag}</span>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <span style={{ fontSize: "20px" }}>{option.flag}</span>
               <Typography
                 variant="body/medium"
                 sx={{

@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import clsx from "clsx";
+import { useTheme } from "@mui/material/styles";
 import type React from "react";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -19,6 +19,7 @@ import { useResetPasswordForm } from "../hooks/useResetPasswordForm";
 
 export const ResetPasswordForm: React.FC = () => {
   const { t } = useTranslation();
+  const theme = useTheme();
   const {
     form,
     isLoading,
@@ -38,15 +39,15 @@ export const ResetPasswordForm: React.FC = () => {
   } = form;
 
   return (
-    <Box className="w-full max-w-[420px] mx-auto">
+    <Box sx={{ width: "100%", maxWidth: "420px", mx: "auto" }}>
       {/* Заголовок */}
-      <Box className="mb-8 text-center">
+      <Box sx={{ mb: 4, textAlign: "center" }}>
         <Typography
           variant="headline/large"
-          className="mb-1"
           component="h1"
           sx={{
             color: COLORS.text.blue,
+            mb: 0.5,
           }}
         >
           {t("auth.resetPassword.title")}
@@ -62,7 +63,11 @@ export const ResetPasswordForm: React.FC = () => {
         </Typography>
       </Box>
 
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <Box
+        component="form"
+        onSubmit={onSubmit}
+        sx={{ ...theme.customMixins.flexColumn, gap: 2 }}
+      >
         {/* New Password поле */}
         <Controller
           name="newPassword"
@@ -99,7 +104,12 @@ export const ResetPasswordForm: React.FC = () => {
                         onClick={toggleNewPasswordVisibility}
                         edge="end"
                         disabled={isLoading}
-                        className="text-gray-500 hover:text-gray-700"
+                        sx={{
+                          color: "grey.500",
+                          "&:hover": {
+                            color: "grey.700",
+                          },
+                        }}
                       >
                         {showNewPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -146,7 +156,12 @@ export const ResetPasswordForm: React.FC = () => {
                         onClick={toggleConfirmPasswordVisibility}
                         edge="end"
                         disabled={isLoading}
-                        className="text-gray-500 hover:text-gray-700"
+                        sx={{
+                          color: "grey.500",
+                          "&:hover": {
+                            color: "grey.700",
+                          },
+                        }}
                       >
                         {showConfirmPassword ? (
                           <VisibilityOff />
@@ -168,11 +183,13 @@ export const ResetPasswordForm: React.FC = () => {
           fullWidth
           variant="contained"
           disabled={isLoading}
-          className={clsx("h-14 rounded-xl", isLoading && "opacity-70")}
           sx={{
+            height: "56px",
+            borderRadius: "12px",
             backgroundColor: COLORS.primary.main,
             color: COLORS.text.white,
             textTransform: "none",
+            opacity: isLoading ? 0.7 : 1,
             "&:hover": {
               backgroundColor: COLORS.primary.main,
               opacity: 0.9,
@@ -184,7 +201,7 @@ export const ResetPasswordForm: React.FC = () => {
           }}
         >
           {isLoading ? (
-            <Box className="flex items-center gap-2">
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <CircularProgress size={20} color="inherit" />
               <Typography variant="body/small" color="inherit">
                 {t("auth.resetPassword.updating")}
@@ -196,7 +213,7 @@ export const ResetPasswordForm: React.FC = () => {
             </Typography>
           )}
         </Button>
-      </form>
+      </Box>
 
       {/* Snackbar для ошибок */}
       <Snackbar

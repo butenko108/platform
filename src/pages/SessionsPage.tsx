@@ -1,8 +1,33 @@
-export const SessionsPage: React.FC = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="text-center">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">Sessions Page</h1>
-      <p className="text-gray-600">You have successfully logged in!</p>
-    </div>
-  </div>
-);
+import { Box, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import type React from "react";
+
+export const SessionsPage: React.FC = () => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        ...theme.customMixins.flexCenter,
+        ...theme.customMixins.fullHeight,
+      }}
+    >
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{
+            fontWeight: "bold",
+            color: "grey.800",
+            mb: 2,
+          }}
+        >
+          Sessions Page
+        </Typography>
+        <Typography variant="body1" sx={{ color: "grey.600" }}>
+          You have successfully logged in!
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
