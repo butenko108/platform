@@ -3,7 +3,7 @@ import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { theme } from "shared/theme/theme";
-import { ThemeContext, type ThemeMode } from "./useTheme";
+import { ThemeContext, type ThemeMode } from "./ThemeContext";
 import "styles/fonts.css";
 
 interface ThemeProviderProps {
